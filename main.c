@@ -27,6 +27,9 @@ typedef struct __attribute__((packed)) BITMAPINFOHEADER{
     uint32_t number_of_important_colors;
 }BITMAPINFOHEADER;
 
+// PLACEHOLDER - aici vine functia scrisa in assembly
+extern int my_func(int a, int b);
+
 int main(){
     bmp_file my_bmp;
     BITMAPINFOHEADER my_BITMAPINFOHEADER;
@@ -53,6 +56,8 @@ int main(){
 
         fseek(img_file, my_bmp.data_offset, SEEK_SET);
         fread(raw_image_data, my_BITMAPINFOHEADER.image_size / 3, 1, img_file);
+
+        printf("%d \n", my_func(0, 0));
     }
 
     return 0;

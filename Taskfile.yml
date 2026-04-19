@@ -13,4 +13,6 @@ tasks:
 
   build:
     cmds:
-      - clang main.c
+      - fasm fnc.asm fnc.o
+      - clang main.c fnc.o -o a.out
+      - rm fnc.o # clean dupa ce lucram
