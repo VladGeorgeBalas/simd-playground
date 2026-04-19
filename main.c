@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <stdint.h>
+// #include <stdlib.h>
+
+struct __attribute__((packed)) uint24_t { unsigned long v:24; };
+typedef struct uint24_t uint24_t;
 
 typedef struct __attribute__((packed)) bmp_file{
     uint8_t header_field[2];
@@ -41,6 +45,15 @@ int main(){
     printf("%u \n", my_bmp.data_offset);
 
     printf("%u \n", my_BITMAPINFOHEADER.bits_per_pixel);
+    printf("%u \n", my_BITMAPINFOHEADER.image_size);
+
+    void* raw_image_data;
+    if(my_BITMAPINFOHEADER.bits_per_pixel == 24){
+        uint24_t raw_image_data[my_BITMAPINFOHEADER.bitmap_height][my_BITMAPINFOHEADER.bitmap_width];
+
+        fseek(img_file, my_bmp.data_offset, SEEK_SET);
+        fread(raw_image_data, my_BITMAPINFOHEADER.image_size / 3, 1, img_file);
+    }
 
     return 0;
 }
